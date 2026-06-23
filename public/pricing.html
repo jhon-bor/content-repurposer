@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定价 - Content Repurposer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a2e; }
+        nav { background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav a { text-decoration: none; color: #667eea; font-weight: bold; font-size: 24px; }
+        .pricing-section { padding: 80px 20px; }
+        .pricing-section h1 { text-align: center; font-size: 42px; margin-bottom: 20px; }
+        .pricing-section p { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .pricing-card { background: white; border-radius: 20px; padding: 50px; text-align: center; border: 2px solid #e0e0e0; position: relative; }
+        .pricing-card.pro { border-color: #667eea; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); }
+        .pricing-card.pro::before { content: '最受欢迎'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #667eea; color: white; padding: 5px 20px; border-radius: 20px; font-size: 14px; }
+        .pricing-card h2 { font-size: 32px; margin-bottom: 15px; }
+        .pricing-card .price { font-size: 56px; font-weight: bold; margin-bottom: 10px; }
+        .pricing-card .period { color: #666; font-size: 16px; margin-bottom: 30px; }
+        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 40px; }
+        .pricing-card li { padding: 12px 0; color: #444; display: flex; align-items: center; }
+        .pricing-card li::before { content: '✓'; color: #10b981; margin-right: 10px; font-weight: bold; }
+        .pricing-card .btn { display: inline-block; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 16px; transition: transform 0.2s; }
+        .pricing-card .btn:hover { transform: translateY(-2px); }
+        .pricing-card .btn-primary { background: #667eea; color: white; }
+        .pricing-card .btn-secondary { background: #f0f0f0; color: #333; }
+        .faq { max-width: 800px; margin: 80px auto; padding: 0 20px; }
+        .faq h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid #e0e0e0; padding-bottom: 20px; }
+        .faq-item h3 { font-size: 18px; margin-bottom: 10px; color: #333; }
+        .faq-item p { color: #666; line-height: 1.6; }
+        .footer { background: #1a1a2e; color: white; padding: 40px; text-align: center; }
+        .footer a { color: #667eea; text-decoration: none; }
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-section h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Content Repurposer</a>
+    </nav>
+    
+    <div class="pricing-section">
+        <h1>选择适合您的方案</h1>
+        <p>灵活的定价方案，满足不同规模的内容创作需求</p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h2>Starter</h2>
+                <div class="price">$9</div>
+                <div class="period">每月</div>
+                <ul>
+                    <li>每月100次API调用</li>
+                    <li>单篇内容最多1000字符</li>
+                    <li>支持5种主流平台</li>
+                    <li>邮件技术支持（24小时内回复）</li>
+                    <li>标准API响应速度</li>
+                </ul>
+                <a href="https://app.lemonsqueezy.com" class="btn btn-secondary">立即购买</a>
+            </div>
+            
+            <div class="pricing-card pro">
+                <h2>Pro</h2>
+                <div class="price">$29</div>
+                <div class="period">每月</div>
+                <ul>
+                    <li>每月500次API调用</li>
+                    <li>单篇内容最多3000字符</li>
+                    <li>支持全部7种平台</li>
+                    <li>优先技术支持（4小时内回复）</li>
+                    <li>更快的API响应速度</li>
+                    <li>详细的使用统计分析</li>
+                    <li>自定义输出格式</li>
+                </ul>
+                <a href="https://app.lemonsqueezy.com" class="btn btn-primary">立即购买</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h2>Business</h2>
+                <div class="price">$99</div>
+                <div class="period">每月</div>
+                <ul>
+                    <li>每月5000次API调用</li>
+                    <li>单篇内容最多10000字符</li>
+                    <li>支持全部7种平台</li>
+                    <li>24/7专属技术支持</li>
+                    <li>最快的API响应速度</li>
+                    <li>高级分析报告</li>
+                    <li>定制化API功能</li>
+                    <li>SLA保障</li>
+                </ul>
+                <a href="mailto:business@example.com" class="btn btn-secondary">联系我们</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="faq">
+        <h2>常见问题</h2>
+        <div class="faq-item">
+            <h3>购买后如何获取API Key？</h3>
+            <p>购买成功后，系统会自动生成API Key并发送到您的邮箱。您也可以在账户设置中查看和管理您的API Key。</p>
+        </div>
+        <div class="faq-item">
+            <h3>支持哪些平台的内容转换？</h3>
+            <p>目前支持Twitter、LinkedIn、Facebook、Instagram、YouTube、博客和邮件等7种平台的内容转换。</p>
+        </div>
+        <div class="faq-item">
+            <h3>可以取消订阅吗？</h3>
+            <p>是的，您可以随时在Lemon Squeezy账户中取消订阅。取消后，您的API Key将在当前计费周期结束时失效。</p>
+        </div>
+        <div class="faq-item">
+            <h3>是否提供试用？</h3>
+            <p>目前我们不提供免费试用，但所有方案都支持7天无理由退款。</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><a href="/">首页</a> | <a href="/docs">API文档</a> | <a href="mailto:support@example.com">支持</a></p>
+        <p style="margin-top:20px;color:#666;">Content Repurposer © 2024</p>
+    </div>
+</body>
+</html>

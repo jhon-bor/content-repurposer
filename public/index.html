@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Repurposer - AI内容重制器</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a2e; }
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 100px 20px; text-align: center; color: white; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 20px; margin-bottom: 40px; opacity: 0.9; }
+        .hero .btn { display: inline-block; background: white; color: #667eea; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 18px; transition: transform 0.2s; }
+        .hero .btn:hover { transform: translateY(-2px); }
+        .features { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+        .features h2 { text-align: center; font-size: 36px; margin-bottom: 60px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .card { padding: 40px; border-radius: 20px; background: #f8f9fa; text-align: center; }
+        .card h3 { font-size: 24px; margin-bottom: 20px; }
+        .card p { color: #666; line-height: 1.6; }
+        .card .icon { font-size: 48px; margin-bottom: 20px; }
+        .pricing-section { background: #f8f9fa; padding: 80px 20px; }
+        .pricing-section h2 { text-align: center; font-size: 36px; margin-bottom: 60px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .pricing-card { background: white; border-radius: 20px; padding: 40px; text-align: center; border: 2px solid transparent; }
+        .pricing-card.pro { border-color: #667eea; transform: scale(1.05); }
+        .pricing-card h3 { font-size: 24px; margin-bottom: 10px; }
+        .pricing-card .price { font-size: 48px; margin-bottom: 20px; }
+        .pricing-card ul { list-style: none; margin-bottom: 30px; }
+        .pricing-card li { padding: 10px 0; color: #666; }
+        .pricing-card .btn { display: inline-block; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; }
+        .pricing-card .btn-primary { background: #667eea; color: white; }
+        .pricing-card .btn-secondary { background: #f0f0f0; color: #333; }
+        .footer { background: #1a1a2e; color: white; padding: 40px; text-align: center; }
+        .footer a { color: #667eea; text-decoration: none; }
+        @media (max-width: 768px) {
+            .grid, .pricing-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+            .pricing-card.pro { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Content Repurposer</h1>
+        <p>AI驱动的内容重制器 - 一键将文章转换为多平台内容</p>
+        <a href="/pricing" class="btn">开始使用</a>
+    </div>
+    
+    <div class="features">
+        <h2>核心功能</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon">🤖</div>
+                <h3>AI智能重写</h3>
+                <p>基于GPT-4 Turbo的强大AI引擎，智能理解内容并进行多平台适配重写</p>
+            </div>
+            <div class="card">
+                <div class="icon">📱</div>
+                <h3>多平台支持</h3>
+                <p>支持Twitter、LinkedIn、Facebook、Instagram、YouTube、博客、邮件等多种平台</p>
+            </div>
+            <div class="card">
+                <div class="icon">⚡</div>
+                <h3>API集成</h3>
+                <p>简单易用的RESTful API，轻松集成到您的工作流或应用中</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pricing-section">
+        <h2>定价方案</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$9<span style="font-size:24px;">/月</span></div>
+                <ul>
+                    <li>每月100次API调用</li>
+                    <li>单篇最多1000字符</li>
+                    <li>基础平台支持</li>
+                    <li>邮件技术支持</li>
+                </ul>
+                <a href="https://app.lemonsqueezy.com" class="btn btn-secondary">购买</a>
+            </div>
+            <div class="pricing-card pro">
+                <h3>Pro</h3>
+                <div class="price">$29<span style="font-size:24px;">/月</span></div>
+                <ul>
+                    <li>每月500次API调用</li>
+                    <li>单篇最多3000字符</li>
+                    <li>全平台支持</li>
+                    <li>优先技术支持</li>
+                    <li>使用统计分析</li>
+                </ul>
+                <a href="https://app.lemonsqueezy.com" class="btn btn-primary">购买</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Business</h3>
+                <div class="price">$99<span style="font-size:24px;">/月</span></div>
+                <ul>
+                    <li>每月5000次API调用</li>
+                    <li>单篇最多10000字符</li>
+                    <li>全平台支持</li>
+                    <li>24/7专属支持</li>
+                    <li>定制化需求</li>
+                </ul>
+                <a href="https://app.lemonsqueezy.com" class="btn btn-secondary">联系我们</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><a href="/docs">API文档</a> | <a href="/pricing">定价</a> | <a href="mailto:support@example.com">支持</a></p>
+        <p style="margin-top:20px;color:#666;">Content Repurposer © 2024</p>
+    </div>
+</body>
+</html>

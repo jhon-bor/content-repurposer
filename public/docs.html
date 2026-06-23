@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API文档 - Content Repurposer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a2e; background: #f8f9fa; }
+        nav { background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav a { text-decoration: none; color: #667eea; font-weight: bold; font-size: 24px; }
+        .container { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
+        .section { background: white; border-radius: 16px; padding: 40px; margin-bottom: 30px; }
+        .section h2 { font-size: 28px; margin-bottom: 30px; color: #333; }
+        .endpoint { background: #f5f3ff; border-left: 4px solid #667eea; padding: 20px; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
+        .endpoint .method { display: inline-block; background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 15px; }
+        .endpoint .url { font-family: monospace; font-size: 16px; color: #333; }
+        .params { margin-bottom: 20px; }
+        .params h4 { margin-bottom: 15px; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .code-block { background: #1a1a2e; color: #f0f0f0; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 14px; overflow-x: auto; margin: 20px 0; }
+        .example { margin-top: 20px; }
+        .example h4 { margin-bottom: 15px; }
+        .platforms { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .platforms span { background: #e0e7ff; color: #4338ca; padding: 8px 16px; border-radius: 20px; font-size: 14px; }
+        .footer { background: #1a1a2e; color: white; padding: 40px; text-align: center; margin-top: 60px; }
+        .footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Content Repurposer</a>
+    </nav>
+    
+    <div class="container">
+        <div class="section">
+            <h2>快速开始</h2>
+            <p style="margin-bottom:20px;color:#666;">Content Repurposer API 允许您将内容一键转换为适合各种社交媒体平台的格式。</p>
+            <p style="margin-bottom:20px;color:#666;">购买后，您将收到API Key。使用此Key进行身份验证。</p>
+            <div class="code-block">curl -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"content": "您的内容", "target_platform": "twitter"}' \
+  https://content-repurposer-production-34d6.up.railway.app/api/repurpose</div>
+        </div>
+        
+        <div class="section">
+            <h2>API端点</h2>
+            
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <span class="url">/api/repurpose</span>
+            </div>
+            <p style="margin-bottom:20px;color:#666;">将内容转换为目标平台格式。</p>
+            
+            <div class="params">
+                <h4>请求参数</h4>
+                <table>
+                    <tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr>
+                    <tr><td>content</td><td>string</td><td>是</td><td>要转换的原始内容</td></tr>
+                    <tr><td>target_platform</td><td>string</td><td>否</td><td>目标平台（见下方列表）</td></tr>
+                </table>
+            </div>
+            
+            <div class="params">
+                <h4>支持的平台</h4>
+                <div class="platforms">
+                    <span>twitter</span><span>linkedin</span><span>facebook</span><span>instagram</span>
+                    <span>youtube</span><span>blog</span><span>email</span>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>示例响应</h4>
+                <div class="code-block">{
+  "success": true,
+  "content": "转换后的内容...",
+  "input_length": 150,
+  "output_length": 200,
+  "plan": "pro"
+}</div>
+            </div>
+            
+            <div class="endpoint" style="margin-top:40px;">
+                <span class="method">GET</span>
+                <span class="url">/api/usage</span>
+            </div>
+            <p style="margin-bottom:20px;color:#666;">查询当前账户的使用统计。</p>
+            
+            <div class="example">
+                <h4>示例响应</h4>
+                <div class="code-block">{
+  "success": true,
+  "plan": "pro",
+  "total_calls": 42,
+  "max_calls": 500,
+  "total_input_chars": 15000,
+  "total_output_chars": 22000
+}</div>
+            </div>
+            
+            <div class="endpoint" style="margin-top:40px;">
+                <span class="method">GET</span>
+                <span class="url">/health</span>
+            </div>
+            <p style="color:#666;">健康检查端点，用于验证服务是否正常运行。</p>
+        </div>
+        
+        <div class="section">
+            <h2>错误处理</h2>
+            <table>
+                <tr><th>状态码</th><th>错误类型</th><th>说明</th></tr>
+                <tr><td>401</td><td>Unauthorized</td><td>API Key无效或未提供</td></tr>
+                <tr><td>400</td><td>Bad Request</td><td>请求参数错误或内容过长</td></tr>
+                <tr><td>429</td><td>Too Many Requests</td><td>超出API调用限制</td></tr>
+                <tr><td>500</td><td>Internal Server Error</td><td>服务器内部错误</td></tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><a href="/">首页</a> | <a href="/pricing">定价</a> | <a href="mailto:support@example.com">支持</a></p>
+        <p style="margin-top:20px;color:#666;">Content Repurposer © 2024</p>
+    </div>
+</body>
+</html>
