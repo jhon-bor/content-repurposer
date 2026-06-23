@@ -128,4 +128,41 @@ router.get('/health', (req, res) => {
   });
 });
 
+// Admin endpoint for managing API keys
+router.post('/admin/keys', async (req, res) => {
+  try {
+    const adminKey = req.headers['x-admin-key'];
+    const expectedAdminKey = process.env.ADMIN_KEY || 'admin-secret-key';
+    
+    if (adminKey !== expectedAdminKey) {
+      return res.status(403).json({ error: 'Invalid admin key' });
+    }
+
+    const { email, plan } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    const { createUser } = require('../utils/db');
+    const { generateApiKey, hashApiKey } = require('../utils/crypto');
+    
+    const apiKey = generateApiKey();
+    const apiKeyHash = hashApiKey(apiKey);
+    
+    await createUser(email, apiKeyHash, plan || 'starter', null, null, null);
+    
+    res.status(200).json({
+      success: true,
+      apiKey: apiKey,
+      email: email,
+      plan: plan || 'starter'
+    });
+
+  } catch (error) {
+    console.error('Admin key creation error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
