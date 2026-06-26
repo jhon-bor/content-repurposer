@@ -20,6 +20,69 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Health check endpoint (no auth required)
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Content Repurposer API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Repurpose endpoint (no /api prefix)
+app.post('/repurpose', async (req, res) => {
+  // Import and use the router logic
+  const authHeader = req.headers['authorization'];
+  
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'API key required. Get one at https://jhon.lemonsqueezy.com' });
+  }
+
+  const apiKey = authHeader.substring(7);
+  const { hashApiKey } = require('./utils/crypto');
+  const { getUserByApiKey, recordUsage, getUsageByUser } = require('./utils/db');
+  
+  const apiKeyHash = hashApiKey(apiKey);
+  const user = await getUserByApiKey(apiKeyHash);
+
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized: Invalid API key' });
+  }
+
+  const { content, target_platform } = req.body;
+  
+  if (!content) {
+    return res.status(400).json({ error: 'Content is required' });
+  }
+
+  const PLANS = {
+    starter: { maxLength: 1000, maxCalls: 100 },
+    pro: { maxLength: 3000, maxCalls: 500 },
+    business: { maxLength: 10000, maxCalls: 5000 }
+  };
+
+  const planLimits = PLANS[user.plan] || PLANS.starter;
+
+  if (content.length > planLimits.maxLength) {
+    return res.status(400).json({ 
+      error: `Content exceeds maximum length for ${user.plan} plan` 
+    });
+  }
+
+  const usage = await getUsageByUser(user.user_id);
+  const totalCalls = parseInt(usage.total_calls) || 0;
+
+  if (totalCalls >= planLimits.maxCalls) {
+    return res.status(429).json({ error: 'API call limit reached' });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Content repurposing endpoint ready. Please configure OpenAI API key for full functionality.',
+    user_plan: user.plan
+  });
+});
+
 app.use('/api', apiRoutes);
 app.use('/webhook', webhookRoutes);
 
@@ -33,14 +96,6 @@ app.get('/docs', (req, res) => {
 
 app.get('/pricing', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pricing.html'));
-});
-
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Content Repurposer API is running',
-    timestamp: new Date().toISOString()
-  });
 });
 
 app.use((err, req, res, next) => {
