@@ -83,11 +83,27 @@ app.post('/repurpose', async (req, res) => {
   });
 });
 
+// Serve static HTML files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API routes
 app.use('/api', apiRoutes);
 app.use('/webhook', webhookRoutes);
 
+// Root route - serve info page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.json({
+    name: 'Content Repurposer Pro API',
+    version: '1.0.0',
+    endpoints: {
+      health: 'GET /health',
+      repurposer: 'POST /repurpose',
+      admin: 'POST /api/admin/keys',
+      webhook: 'POST /webhook/lemonsqueezy'
+    },
+    documentation: '/docs',
+    pricing: '/pricing'
+  });
 });
 
 app.get('/docs', (req, res) => {
