@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const apiRoutes = require('./routes/api');
 const webhookRoutes = require('./routes/webhook');
+const paypalRoutes = require('./routes/paypal');
 const { initDatabase } = require('./utils/db');
 
 const app = express();
@@ -89,6 +90,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API routes
 app.use('/api', apiRoutes);
 app.use('/webhook', webhookRoutes);
+app.use('/paypal', paypalRoutes);
 
 // Root route - serve info page
 app.get('/', (req, res) => {

@@ -97,6 +97,18 @@ async function createUser(email, apiKeyHash, plan, customerId, orderId, subscrip
   return result.rows[0];
 }
 
+async function getUserByEmail(email) {
+  if (useMemoryStorage) {
+    return memoryUsers.find(u => u.email === email);
+  }
+
+  const result = await pool.query(
+    'SELECT * FROM users WHERE email = $1',
+    [email]
+  );
+  return result.rows[0];
+}
+
 async function getUserByApiKey(apiKeyHash) {
   if (useMemoryStorage) {
     return memoryUsers.find(u => u.api_key_hash === apiKeyHash && u.status === 'active');
@@ -172,6 +184,7 @@ module.exports = {
   pool,
   initDatabase,
   createUser,
+  getUserByEmail,
   getUserByApiKey,
   deactivateUser,
   recordUsage,
